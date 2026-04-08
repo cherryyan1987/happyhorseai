@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HappyHorse AI - AI Image & Video Generator</title>
+  <title>HappyHorse 1.0 — #1 AI Video Generator on AI Video Arena</title>
   <meta
     name="description"
-    content="HappyHorse AI helps you generate stunning AI images and videos from text prompts in seconds."
+    content="HappyHorse 1.0 is a multimodal AI model for text-to-image, text-to-video, and image-to-video generation. Try HappyHorse AI now."
   />
+  <link rel="icon" href="hapyhorse logo.png" />
   <style>
     :root {
       --bg: #060816;
@@ -48,8 +49,8 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
       background-size: 38px 38px;
       mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
       pointer-events: none;
@@ -85,16 +86,32 @@
       gap: 12px;
       font-weight: 700;
       letter-spacing: 0.2px;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .brand-badge {
-      width: 38px;
-      height: 38px;
+    .logo {
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
-      display: grid;
-      place-items: center;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
       box-shadow: 0 10px 30px rgba(139, 92, 246, 0.35);
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .brand span {
       font-size: 18px;
     }
 
@@ -148,7 +165,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 28px;
       align-items: center;
       padding: 72px 0 56px;
@@ -169,9 +186,10 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(40px, 6vw, 72px);
-      line-height: 0.96;
+      font-size: clamp(38px, 5.4vw, 70px);
+      line-height: 1.02;
       letter-spacing: -0.04em;
+      max-width: 760px;
     }
 
     .gradient-text {
@@ -186,7 +204,7 @@
       color: var(--muted);
       font-size: 18px;
       line-height: 1.8;
-      max-width: 640px;
+      max-width: 680px;
     }
 
     .hero-actions {
@@ -245,9 +263,9 @@
     }
 
     .preview-item {
-      min-height: 120px;
+      min-height: 122px;
       border-radius: 20px;
-      padding: 14px;
+      padding: 16px;
       border: 1px solid rgba(255,255,255,0.08);
       position: relative;
       overflow: hidden;
@@ -280,6 +298,7 @@
       margin-top: 10px;
       font-size: 18px;
       font-weight: 700;
+      line-height: 1.35;
     }
 
     section {
@@ -347,6 +366,7 @@
       margin-bottom: 16px;
       background: linear-gradient(135deg, rgba(139,92,246,0.28), rgba(34,211,238,0.18));
       border: 1px solid rgba(255,255,255,0.1);
+      font-size: 20px;
     }
 
     .feature-card h3 {
@@ -420,6 +440,10 @@
       .cta-box {
         border-radius: 22px;
       }
+
+      h1 {
+        font-size: clamp(34px, 10vw, 54px);
+      }
     }
   </style>
 </head>
@@ -427,17 +451,20 @@
   <header class="navbar">
     <div class="container">
       <div class="nav-inner">
-        <div class="brand">
-          <div class="brand-badge">🐎</div>
+        <a class="brand" href="https://happyhorseai.site/" target="_blank" rel="noopener noreferrer">
+          <div class="logo">
+            <img src="hapyhorse logo.png" alt="HappyHorse AI Logo" />
+          </div>
           <span>HappyHorse AI</span>
-        </div>
+        </a>
+
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#use-cases">Use Cases</a>
           <a href="#launch">Launch</a>
           <a
             class="btn btn-primary"
-            href="http://happyhorseai.site"
+            href="https://happyhorseai.site/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -451,20 +478,22 @@
   <main>
     <section class="hero container">
       <div>
-        <div class="pill">⚡ All-in-one AI Image & Video Generator</div>
+        <div class="pill">🏆 Ranked #1 on AI Video Arena</div>
+
         <h1>
-          Turn text into
-          <span class="gradient-text">stunning visuals</span>
+          HappyHorse 1.0 — #1 AI Video Generator on AI Video Arena
         </h1>
+
         <p>
-          HappyHorse AI helps creators, marketers, and businesses generate
-          high-quality AI images and videos from simple prompts in seconds.
-          Fast workflow, futuristic style, and a direct path to creation.
+          A multimodal AI model for text-to-image, text-to-video, and image-to-video generation.
+          Create stunning visuals, cinematic motion, and dynamic content through one fast,
+          browser-based workflow.
         </p>
+
         <div class="hero-actions">
           <a
             class="btn btn-primary"
-            href="http://happyhorseai.site"
+            href="https://happyhorseai.site/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -472,8 +501,9 @@
           </a>
           <a class="btn btn-secondary" href="#features">Explore Features</a>
         </div>
+
         <div class="hero-note">
-          Designed as a GitHub Pages landing page to drive traffic to your main website.
+          Text → Image · Text → Video · Image → Video
         </div>
       </div>
 
@@ -483,22 +513,23 @@
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
+
         <div class="preview-grid">
           <div class="preview-item art1">
-            <div class="preview-label">Image</div>
-            <div class="preview-title">Dreamlike Portraits</div>
+            <div class="preview-label">Text to Image</div>
+            <div class="preview-title">Generate polished visual outputs</div>
           </div>
           <div class="preview-item art2">
-            <div class="preview-label">Video</div>
-            <div class="preview-title">Prompt to Motion</div>
+            <div class="preview-label">Text to Video</div>
+            <div class="preview-title">Turn prompts into cinematic motion</div>
           </div>
           <div class="preview-item art3">
-            <div class="preview-label">Style</div>
-            <div class="preview-title">Cinematic Looks</div>
+            <div class="preview-label">Image to Video</div>
+            <div class="preview-title">Animate static images into scenes</div>
           </div>
           <div class="preview-item art4">
             <div class="preview-label">Speed</div>
-            <div class="preview-title">Fast Generations</div>
+            <div class="preview-title">Fast generations for rapid creation</div>
           </div>
         </div>
       </div>
@@ -508,54 +539,53 @@
       <div class="stats">
         <div class="card">
           <strong>Text → Image</strong>
-          <span>Create eye-catching AI visuals from a single prompt.</span>
+          <span>Create high-quality AI images from simple prompts.</span>
         </div>
         <div class="card">
           <strong>Text → Video</strong>
-          <span>Bring ideas to life with AI-powered motion content.</span>
+          <span>Generate short-form video content with visual coherence.</span>
         </div>
         <div class="card">
-          <strong>Direct CTA</strong>
-          <span>Send users straight to happyhorseai.site with one click.</span>
+          <strong>Image → Video</strong>
+          <span>Bring still images to life with dynamic motion and animation.</span>
         </div>
       </div>
     </section>
 
     <section class="container" id="features">
       <div class="section-title">
-        <h2>Built to convert GitHub visitors</h2>
+        <h2>Built for multimodal visual creation</h2>
         <p>
-          This page is designed to work as a stylish product landing page for GitHub Pages,
-          with a premium visual feel and multiple calls to action that guide users directly
-          to your main website.
+          HappyHorse 1.0 unifies image and video generation into one streamlined experience,
+          helping creators, marketers, and businesses move from idea to output faster.
         </p>
       </div>
 
       <div class="features">
         <div class="card feature-card">
           <div class="icon">🎨</div>
-          <h3>Visual-first Hero</h3>
+          <h3>Text-to-Image</h3>
           <p>
-            Large typography, glassmorphism cards, layered gradients, and a modern
-            startup aesthetic that feels polished and premium.
+            Create promotional visuals, concept art, thumbnails, and social content directly
+            from text prompts.
           </p>
         </div>
 
         <div class="card feature-card">
-          <div class="icon">🚀</div>
-          <h3>Strong CTA Button</h3>
+          <div class="icon">🎬</div>
+          <h3>Text-to-Video</h3>
           <p>
-            The primary button links directly to your live website, helping you turn
-            repository traffic into real product visitors.
+            Generate short-form AI video for storytelling, ads, launch content, and creative
+            experimentation.
           </p>
         </div>
 
         <div class="card feature-card">
-          <div class="icon">⚙️</div>
-          <h3>Easy to Deploy</h3>
+          <div class="icon">🖼️</div>
+          <h3>Image-to-Video</h3>
           <p>
-            A single-file landing page that works perfectly with GitHub Pages.
-            Upload <strong>index.html</strong> and publish.
+            Transform static images into moving scenes and dynamic visual sequences with
+            minimal effort.
           </p>
         </div>
       </div>
@@ -563,38 +593,38 @@
 
     <section class="container" id="use-cases">
       <div class="section-title">
-        <h2>Perfect for AI product promotion</h2>
+        <h2>Designed for real-world use cases</h2>
         <p>
-          Use this page as a lightweight marketing layer for SEO, external links,
-          GitHub traffic, and brand credibility.
+          Use HappyHorse AI to create assets for social media, marketing, product promotion,
+          creative testing, and fast visual prototyping.
         </p>
       </div>
 
       <div class="features">
         <div class="card feature-card">
           <div class="icon">📣</div>
-          <h3>External Link Traffic</h3>
+          <h3>Marketing Creatives</h3>
           <p>
-            Share this GitHub Pages URL on directories, forums, profiles, and social posts
-            to build more entry points to your website.
+            Produce campaign visuals, launch assets, and ad concepts faster than traditional
+            creative workflows.
           </p>
         </div>
 
         <div class="card feature-card">
-          <div class="icon">🔍</div>
-          <h3>SEO Support</h3>
+          <div class="icon">📱</div>
+          <h3>Social Content</h3>
           <p>
-            Add relevant product copy and keyword-rich sections to strengthen your overall
-            search presence and brand footprint.
+            Generate images and videos for TikTok, Instagram, YouTube Shorts, and product
+            launches.
           </p>
         </div>
 
         <div class="card feature-card">
-          <div class="icon">🌐</div>
-          <h3>Brand Trust</h3>
+          <div class="icon">⚡</div>
+          <h3>Rapid Iteration</h3>
           <p>
-            A public GitHub project plus a polished landing page makes your AI product
-            look more established and trustworthy.
+            Explore multiple visual directions quickly and refine ideas before committing to
+            full production.
           </p>
         </div>
       </div>
@@ -602,14 +632,14 @@
 
     <section class="container" id="launch">
       <div class="cta-box">
-        <h2>Ready to start creating?</h2>
+        <h2>Start creating with HappyHorse AI</h2>
         <p>
-          Launch HappyHorse AI and turn your ideas into high-quality images and videos
-          with the power of generative AI.
+          Try HappyHorse 1.0 through the HappyHorse AI platform and generate images and videos
+          from text and images in seconds.
         </p>
         <a
           class="btn btn-primary"
-          href="http://happyhorseai.site"
+          href="https://happyhorseai.site/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -622,7 +652,7 @@
   <footer>
     <div class="container footer-inner">
       <span>© 2026 HappyHorse AI</span>
-      <span>AI Image Generator · AI Video Generator · GitHub Pages Landing</span>
+      <span>HappyHorse 1.0 · Text-to-Image · Text-to-Video · Image-to-Video</span>
     </div>
   </footer>
 </body>
