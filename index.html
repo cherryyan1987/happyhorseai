@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HappyHorse AI - AI Image & Video Generator</title>
+  <meta
+    name="description"
+    content="HappyHorse AI helps you generate stunning AI images and videos from text prompts in seconds."
+  />
+  <style>
+    :root {
+      --bg: #060816;
+      --bg2: #0b1023;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --primary: #8b5cf6;
+      --secondary: #22d3ee;
+      --pink: #ec4899;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.35), transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.25), transparent 20%),
+        radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.18), transparent 25%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar {
+      padding: 20px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.35);
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 16px 40px rgba(139, 92, 246, 0.35);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      padding: 72px 0 56px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: #dbeafe;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 10%, #a78bfa 40%, #67e8f9 75%, #f9a8d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      margin: 22px 0 30px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 22px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.6), rgba(34,211,238,0.45), rgba(236,72,153,0.35));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .preview-item {
+      min-height: 120px;
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-item::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -30px;
+      bottom: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+    }
+
+    .art1 { background: linear-gradient(135deg, rgba(139,92,246,0.28), rgba(99,102,241,0.12)); }
+    .art2 { background: linear-gradient(135deg, rgba(34,211,238,0.24), rgba(59,130,246,0.10)); }
+    .art3 { background: linear-gradient(135deg, rgba(236,72,153,0.24), rgba(139,92,246,0.10)); }
+    .art4 { background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(34,211,238,0.08)); }
+
+    .preview-label {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #dbeafe;
+      text-transform: uppercase;
+    }
+
+    .preview-title {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 22px 0 44px;
+    }
+
+    .section-title {
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.03em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 760px;
+    }
+
+    .stats,
+    .features {
+      display: grid;
+      gap: 16px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .card strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .card span,
+    .card p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.28), rgba(34,211,238,0.18));
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .cta-box {
+      padding: 34px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.24), transparent 32%),
+        rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 48px);
+    }
+
+    .cta-box p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 760px;
+    }
+
+    footer {
+      padding: 0 0 34px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .stats,
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-inner {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .card,
+      .cta-box {
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-badge">🐎</div>
+          <span>HappyHorse AI</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#use-cases">Use Cases</a>
+          <a href="#launch">Launch</a>
+          <a
+            class="btn btn-primary"
+            href="http://happyhorseai.site"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try HappyHorse AI
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div>
+        <div class="pill">⚡ All-in-one AI Image & Video Generator</div>
+        <h1>
+          Turn text into
+          <span class="gradient-text">stunning visuals</span>
+        </h1>
+        <p>
+          HappyHorse AI helps creators, marketers, and businesses generate
+          high-quality AI images and videos from simple prompts in seconds.
+          Fast workflow, futuristic style, and a direct path to creation.
+        </p>
+        <div class="hero-actions">
+          <a
+            class="btn btn-primary"
+            href="http://happyhorseai.site"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🚀 Launch App
+          </a>
+          <a class="btn btn-secondary" href="#features">Explore Features</a>
+        </div>
+        <div class="hero-note">
+          Designed as a GitHub Pages landing page to drive traffic to your main website.
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="window-bar">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="preview-grid">
+          <div class="preview-item art1">
+            <div class="preview-label">Image</div>
+            <div class="preview-title">Dreamlike Portraits</div>
+          </div>
+          <div class="preview-item art2">
+            <div class="preview-label">Video</div>
+            <div class="preview-title">Prompt to Motion</div>
+          </div>
+          <div class="preview-item art3">
+            <div class="preview-label">Style</div>
+            <div class="preview-title">Cinematic Looks</div>
+          </div>
+          <div class="preview-item art4">
+            <div class="preview-label">Speed</div>
+            <div class="preview-title">Fast Generations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="stats">
+        <div class="card">
+          <strong>Text → Image</strong>
+          <span>Create eye-catching AI visuals from a single prompt.</span>
+        </div>
+        <div class="card">
+          <strong>Text → Video</strong>
+          <span>Bring ideas to life with AI-powered motion content.</span>
+        </div>
+        <div class="card">
+          <strong>Direct CTA</strong>
+          <span>Send users straight to happyhorseai.site with one click.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="features">
+      <div class="section-title">
+        <h2>Built to convert GitHub visitors</h2>
+        <p>
+          This page is designed to work as a stylish product landing page for GitHub Pages,
+          with a premium visual feel and multiple calls to action that guide users directly
+          to your main website.
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="card feature-card">
+          <div class="icon">🎨</div>
+          <h3>Visual-first Hero</h3>
+          <p>
+            Large typography, glassmorphism cards, layered gradients, and a modern
+            startup aesthetic that feels polished and premium.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="icon">🚀</div>
+          <h3>Strong CTA Button</h3>
+          <p>
+            The primary button links directly to your live website, helping you turn
+            repository traffic into real product visitors.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="icon">⚙️</div>
+          <h3>Easy to Deploy</h3>
+          <p>
+            A single-file landing page that works perfectly with GitHub Pages.
+            Upload <strong>index.html</strong> and publish.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="use-cases">
+      <div class="section-title">
+        <h2>Perfect for AI product promotion</h2>
+        <p>
+          Use this page as a lightweight marketing layer for SEO, external links,
+          GitHub traffic, and brand credibility.
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="card feature-card">
+          <div class="icon">📣</div>
+          <h3>External Link Traffic</h3>
+          <p>
+            Share this GitHub Pages URL on directories, forums, profiles, and social posts
+            to build more entry points to your website.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="icon">🔍</div>
+          <h3>SEO Support</h3>
+          <p>
+            Add relevant product copy and keyword-rich sections to strengthen your overall
+            search presence and brand footprint.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="icon">🌐</div>
+          <h3>Brand Trust</h3>
+          <p>
+            A public GitHub project plus a polished landing page makes your AI product
+            look more established and trustworthy.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="launch">
+      <div class="cta-box">
+        <h2>Ready to start creating?</h2>
+        <p>
+          Launch HappyHorse AI and turn your ideas into high-quality images and videos
+          with the power of generative AI.
+        </p>
+        <a
+          class="btn btn-primary"
+          href="http://happyhorseai.site"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Go to HappyHorse AI
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 HappyHorse AI</span>
+      <span>AI Image Generator · AI Video Generator · GitHub Pages Landing</span>
+    </div>
+  </footer>
+</body>
+</html>
